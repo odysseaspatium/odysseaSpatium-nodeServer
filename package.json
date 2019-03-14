@@ -17,7 +17,15 @@
   },
   "homepage": "https://github.com/odysseaspatium/odysseaSpatium-nodeServer#readme",
   "dependencies": {
+    "commander": "^2.19.0",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
-    "mongoose": "^5.4.19"
-  }
+    "jade": "^1.11.0",
+    "mariadb": "^2.0.3",
+    "mongoose": "^5.4.19",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.10",
+    "sails": "^1.1.0"
+  },
+  "devDependencies": {}
 }
