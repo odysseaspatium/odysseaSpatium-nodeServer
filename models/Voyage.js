@@ -1,31 +1,54 @@
-var db=require('../dbconnexion'); //reference of dbconnection.js
+var db = require ('../dbconnexion');  //reference of dbconnection.js
 
 var Voyage={
-        getAllJourney:function(callback){
-            return db.query("Select * from t_voyage",callback);
+        async getAllJourney(callback){
+            try{
+                conn = await db.getConnection();
+                const data = await conn.query("Select * from t_voyage");
+                return data;
+
+                } catch (err) {
+                    throw err;
+                } finally {
+                    if (conn) 
+                        return conn.end();
+                }
         },
 
 
-        getJourneyById:function(id,callback){
-            return db.query("select * from t_voyage where id_voyage=?",[id],callback);
+        async getJourneyById(body,callback){
+            try{
+                conn = await db.getConnection();
+                const data = await conn.query("select * from t_voyage where id_voyage=?",[body.id]);
+                return data;
+
+                } catch (err) {
+                    throw err;
+                } finally {
+                    if (conn) 
+                    return conn.end();
+                }
         },
 
 
-        addVoyage:function(Voyage,callback){
-            return db.query("Insert into t_voyage values(?,?,?,?,?,?,?,?)",[Voyage.id_voyage, Voyage.nom_voyage, Voyage.dateDebut_voyage,
+        async creerVoyage(Voyage,callback){
+         try {
+                conn = await db.getConnection();
+                const data = await conn.query("Insert into t_voyage values(?,?,?,?,?,?,?,?)",[Voyage.id_voyage, Voyage.nom_voyage, Voyage.dateDebut_voyage,
                                                                     Voyage.dateFin_voyage,Voyage.description_voyage,Voyage.prix_voyage,
-                                                                    Voyage.lien_photos_voyage,Voyage.annonce_voyage],callback);
+                                                                    Voyage.lien_photos_voyage,Voyage.annonce_voyage]);
+                 return data;
+
+                } catch (err) {
+                    throw err;
+                } finally {
+                    if (conn) 
+                    return conn.end();
+                }
         },
 
-        deleteVoyage:function(id,callback){
-        return db.query("delete from t_voyage where id_voyage=?",[id],callback);
-        },
+        
 
-        updateVoyage:function(id,Voyage,callback){
-        return db.query("update t_voyage set nom_voyage = ? , dateDebut_voyage = ?, dateFin_voyage = ?, description_voyage=?, prix_voyage =? , lien_photos_voyage=?,annonce_voyage=? where id_voyage=?",[Voyage.id_voyage, Voyage.nom_voyage, Voyage.dateDebut_voayeg,
-                                                                    Voyage.dateFin_voyage,Voyage.description_voyage,Voyage.prix_voyage,
-                                                                    Voyage.lien_photos_voyage,Voyage.annonce_voyage,id],callback);
-        }
 
 };
 module.exports = Voyage;

@@ -1,25 +1,59 @@
-var db=require('../dbconnexion').default; //reference of dbconnection.js
+var db = require ('../dbconnexion'); //reference of dbconnection.js
 
 var Panier={
-        getAllPanier:function(callback){
-            return db.query("Select * from t_panier",callback);
+        async getAllPanier(callback){
+            return query("Select * from t_panier",callback);
         },
 
 
-        getPanierById:function(id,callback){
-            return db.query("select * from t_panier where Id=?",[id],callback);
+        async getPanierById(body,callback){
+            let conn, data;
+                try {
+                    conn = await db.getConnection();
+                    data = await conn.query("select * from t_voyage NATURAL JOIN t_article where id_panier=?",[body.id]);
+                
+                } catch (err) {
+                    throw err;
+                } finally {
+                    if (conn){
+                        console.log("connect close");
+                        conn.end();
+                    } 
+                        
+                }
+                 return data;
         },
 
-        creerPanier:function(callback){
-            return db.query("Insert into t_panier values(?)",[0.0],callback)
+        async creerPanier(Panier){
+            let conn,data;
+                try {
+                    conn = await db.getConnection();
+                    const rows = await conn.query("INSERT INTO `t_panier` VALUES (?, ?)",[null, 0.0]);
+                     data = await conn.query("SELECT count(*) as id_panier from t_panier");
+                    await conn.end();
+                    return data[0].id_panier;
+                } catch (err) {
+                    conn.end();
+                    throw err;
+                } 
         },
 
       
-        deletePanier:function(id,callback){
-        return db.query("delete from t_panier where id_panier=?",[id],callback);
+        async validerPanier(body,callback){
+            return query("delete from t_article where id_panier=?",[body.id_panier],callback);
+            let conn;
+                try {
+                    conn = await db.getConnection();
+                    const data = await conn.query("delete from t_article where id_panier=?",[body.id_panier],callback);
+
+                } catch (err) {
+                    throw err;
+                } finally {
+                    if (conn) 
+                    return conn.end();
+                }
         },
 
        
 
-};
-module.exports=Panier;
+};module.exports=Panier;

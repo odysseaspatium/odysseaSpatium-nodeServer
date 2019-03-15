@@ -7,6 +7,9 @@ var bodyParser = require('body-parser');
 var cors=require('cors');
 
 var Voyage=require('./routes/VoyageRoute');
+var Panier = require('./routes/PanierRoute');
+var Commentaire = require('./routes/CommentaireRoute');
+var Article=require('./routes/ArticleRoute');
 var app = express();
 
 // view engine setup
@@ -23,11 +26,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use('/Voyage',Voyage);
 
-app.get("/test", (req, res) => {
-    res.send("Hello");
-});
+app.use('/Voyage',Voyage);
+app.use('/Panier',Panier);
+app.use('/Commentaire',Commentaire);
+app.use('/Article',Article);
+
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -39,19 +45,20 @@ app.listen(4000, () => {
     console.log('Listening on port 4000');
     app.use('/Voyage',Voyage);
 });
-// error handlers
+// Require static assets from public folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Set 'views' directory for any views 
+// being rendered res.render()
+app.set('views', path.join(__dirname, 'views'));
+
+// Set view engine as EJS
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-        message: err.message,
-        error: err
-    });
-    });
-}
+
 
 // production error handler
 // no stacktraces leaked to user

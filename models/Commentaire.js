@@ -1,21 +1,52 @@
 var db=require('../dbconnexion').default; //reference of dbconnection.js
 
 var Commentaire={
-        getAllCommentaire:function(callback){
-            return db.query("Select * from t_commentaire",callback);
+        async getAllCommentaire(callback){
+            try{
+                    conn = await db.getConnection();
+                    const data = await conn.query("Select * from t_commentaire",callback);
+                    return data;
+
+            } catch (err) {
+                    throw err;
+            } finally {
+                    if (conn) 
+                    return conn.end();
+            }
+            
         },
 
 
-        getCommentaireById:function(id,callback){
-            return db.query("select * from t_commentaire where Id=?",[id],callback);
+        async getCommentaireByVoyage(body,callback){
+            try{
+                    conn = await db.getConnection();
+                    const data = await conn.query("select * from t_commentaire where id_voyage_commentaire=?",[body.id]);
+                    return data;
+
+            } catch (err) {
+                    throw err;
+            } finally {
+                    if (conn) 
+                    return conn.end();
+            }
         },
 
 
-        addCommentaire:function(Commentaire,callback){
-            return db.query("Insert into t_commentaire values(?,?,?,?,?)",[Commentaire.id_commentaire,Commentaire.id_voyage_commentaire,Commentaire.texte_commentaire,Commentaire.id_user, Commentaire.lien_photos_commentaire],callback);
+        async creerCommentaire(Commentaire,callback){
+              try{
+                    conn = await db.getConnection();
+                    const data = await conn.query("Insert into t_commentaire values(?,?,?,?,?)",[null,Commentaire.id_voyage,Commentaire.commentaire,Commentaire.id_utilisateur,null]);
+                    return data;
+
+            } catch (err) {
+                    throw err;
+            } finally {
+                    if (conn) 
+                    return conn.end();
+            }
         },
 
-        deleteCommentaire:function(id,callback){
+        async deleteCommentaire(id,callback){
         return db.query("delete from t_commentaire where id_commentaire=?",[id],callback);
         },
        

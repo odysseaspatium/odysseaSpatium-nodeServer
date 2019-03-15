@@ -1,8 +1,11 @@
 var express = require('express');
  var router = express.Router();
- var Panier=require('../models/Panier').default;
+ var Panier=require('../models/Panier');
 
+
+/*
 router.get('/:id?',function(req,res){
+
 
 if(req.params.id){
     Panier.getPanierById(req.params.id,function(err,rows){
@@ -23,21 +26,22 @@ if(req.params.id){
     });
  }
 });
- 
+ */
 
-router.get('/',function(req,res){
-    Panier.creerPanierr(req.body,function(err){
-        if(err){
-            res.json(err);
-        }else{
-            res.json(req.body);//or return count for 1 &amp;amp;amp; 0
-        }
-    });
+router.get('/creer',  function(req,res){
+      Panier.creerPanier(req.body,function(err){
+            if(err){
+                res.json(err);
+            }
+        }).then(function(data){
+             res.writeHead(data);
+        });
 });
 
 
 
-router.delete('/',function(req,res){
+router.get('/delete',function(req,res){
+       
          Panier.deleteVoyageFromPanier(req.params.id,function(err,count){
             if(err){
                 res.json(err);
@@ -49,6 +53,5 @@ router.delete('/',function(req,res){
 });
 
 
- 
 
  module.exports=router;
