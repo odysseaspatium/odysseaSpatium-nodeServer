@@ -1,5 +1,5 @@
 var express = require('express');
- var router = express.Router();
+var router = express.Router();
  var Panier=require('../models/Panier');
 
 
@@ -34,7 +34,8 @@ router.get('/creer',  function(req,res){
                 res.json(err);
             }
         }).then(function(data){
-             res.writeHead(data);
+            console.log(data);
+            res.send(""+data);
         });
 });
 

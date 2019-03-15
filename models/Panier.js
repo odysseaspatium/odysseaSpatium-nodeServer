@@ -31,11 +31,12 @@ var Panier={
                     const rows = await conn.query("INSERT INTO `t_panier` VALUES (?, ?)",[null, 0.0]);
                      data = await conn.query("SELECT count(*) as id_panier from t_panier");
                     await conn.end();
-                    return data[0].id_panier;
+                    console.log(data[0].id_panier);
                 } catch (err) {
                     conn.end();
                     throw err;
-                } 
+                }
+                return data[0].id_panier;
         },
 
       
