@@ -1,9 +1,7 @@
 var db=require('../dbconnexion'); //reference of dbconnection.js
 
 var Commentaire={
-       
-
-
+        
         async getCommentaireByVoyage(body){
             let conn, data;
             try{

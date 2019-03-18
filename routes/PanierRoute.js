@@ -4,7 +4,7 @@ var router = express.Router();
 
 
 
-router.get('/contenu',function(req,res){
+router.post('/contenu',function(req,res){
          Panier.getContenuPanierById(req.body, function(err){
             if(err){
                     res.json(err);
@@ -15,7 +15,7 @@ router.get('/contenu',function(req,res){
 
 });
 
-router.get('/idPanier',function(req,res){
+router.post('/idPanier',function(req,res){
          Panier.getPanierByIdUser(req.body, function(err){
             if(err){
                     res.json(err);
@@ -28,7 +28,7 @@ router.get('/idPanier',function(req,res){
 
 });
  
-router.get('/creer',  function(req,res){
+router.post('/creer',  function(req,res){
       Panier.creerPanier(function(err){
             if(err){
                 res.json(err);
@@ -42,7 +42,7 @@ router.get('/creer',  function(req,res){
 
 
 
-router.get('/delete',function(req,res){
+router.post('/delete',function(req,res){
        
          Panier.deleteVoyageFromPanier(req.params.id,function(err){
             if(err){
@@ -56,7 +56,7 @@ router.get('/delete',function(req,res){
     
 });
 
-router.get('/valider',function(req,res){
+router.post('/valider',function(req,res){
        Panier.validerPanier(req.body,function(err){
             if(err){
                 res.json(err);

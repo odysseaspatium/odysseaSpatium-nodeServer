@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Commentaire=require('../models/Commentaire');
 
-router.get('/getCommentaire',function(req,res){
+router.post('/getCommentaire',function(req,res){
     Commentaire.getCommentaireByVoyage(req.body,function(err){
         if(err){
                 res.json(err);
@@ -13,7 +13,7 @@ router.get('/getCommentaire',function(req,res){
 });
 
  
-router.get('/addCommentaire',function(req,res){
+router.post('/addCommentaire',function(req,res){
     Commentaire.addCommentaire(req.body,function(err){
         if(err){
             res.json(err);

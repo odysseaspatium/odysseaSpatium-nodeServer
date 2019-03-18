@@ -2,7 +2,7 @@ var Router = require('express');
 var router = Router();
 var Voyage=require('../models/Voyage');
 
-router.get('/getVoyage',function(req,res){
+router.post('/getVoyage',function(req,res){
     Voyage.getVoyageById(req.body,function(err){
         if(err){
                 res.json(err);
@@ -11,7 +11,7 @@ router.get('/getVoyage',function(req,res){
         res.json(data);
     });
 });
-router.get('/getTousVoyages',function(req,res){
+router.post('/getTousVoyages',function(req,res){
     Voyage.getTousVoyages(req.body,function(err){
         if(err){
                 res.json(err);
