@@ -1,60 +1,69 @@
 var db = require ('../dbconnexion'); //reference of dbconnection.js
 
 var Panier={
-        async getAllPanier(callback){
-            return query("Select * from t_panier",callback);
-        },
 
-
-        async getPanierById(body,callback){
+        async getContenuPanierById(body){
             let conn, data;
                 try {
                     conn = await db.getConnection();
-                    data = await conn.query("select * from t_voyage NATURAL JOIN t_article where id_panier=?",[body.id]);
-                
+                    data = await conn.query("select * from t_voyage NATURAL JOIN t_article where id_panier=?",[body.id_panier]);
+                    await conn.end();
                 } catch (err) {
+                    if(conn)
+                        await conn.end();
                     throw err;
-                } finally {
-                    if (conn){
-                        console.log("connect close");
-                        conn.end();
-                    } 
-                        
+                }
+                 return data;
+        },
+         async getPanierByIdUser(body){
+            let conn, data;
+                try {
+                    conn = await db.getConnection();
+                    data = await conn.query("select id_panier from t_panier where id_user=?",[body.id_utilisateur]);
+                    await conn.end();
+                } catch (err) {
+                    if(conn)
+                        await conn.end();
+                    throw err;
                 }
                  return data;
         },
 
-        async creerPanier(Panier){
-            let conn,data;
-                try {
-                    conn = await db.getConnection();
-                    const rows = await conn.query("INSERT INTO `t_panier` VALUES (?, ?)",[null, 0.0]);
-                     data = await conn.query("SELECT count(*) as id_panier from t_panier");
+        async creerPanier(){
+            let conn, data, rows;
+            try{
+                conn = await db.getConnection();
+                rows = await conn.query("INSERT INTO `t_panier` VALUES (?, ?)",[null, 0.0]);
+                data = await conn.query("SELECT count(*) as id_panier from t_panier");
+                await conn.end();   
+                    
+            }catch(err){
+                if(conn)
                     await conn.end();
-                    console.log(data[0].id_panier);
-                } catch (err) {
-                    conn.end();
-                    throw err;
+                throw err;
                 }
+                
                 return data[0].id_panier;
         },
 
       
-        async validerPanier(body,callback){
-            return query("delete from t_article where id_panier=?",[body.id_panier],callback);
-            let conn;
+        async validerPanier(body){
+            let conn, data;
                 try {
                     conn = await db.getConnection();
-                    const data = await conn.query("delete from t_article where id_panier=?",[body.id_panier],callback);
-
+                    data= await conn.query("delete from t_article where id_panier=?",[body.id_panier]);
+                    await conn.end();
+                    
                 } catch (err) {
+                    if(conn)
+                        await conn.end();
                     throw err;
-                } finally {
-                    if (conn) 
-                    return conn.end();
                 }
+                return data;
+
         },
 
-       
+    
 
-};module.exports=Panier;
+};
+module.exports=Panier;

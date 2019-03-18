@@ -3,39 +3,40 @@ var router = express.Router();
  var Panier=require('../models/Panier');
 
 
-/*
-router.get('/:id?',function(req,res){
 
+router.get('/contenu',function(req,res){
+         Panier.getContenuPanierById(req.body, function(err){
+            if(err){
+                    res.json(err);
+            }
+         }).then(function(data){
+           res.json(data);
+        });
 
-if(req.params.id){
-    Panier.getPanierById(req.params.id,function(err,rows){
-    if(err){
-            res.json(err);
-    }else{
-            res.json(rows);
-    }
-  });
- }else{
-         Panier.getAllPanier(function(err,rows){
-         if(err){
-                res.json(err);
-         }else{
-                res.json(rows);
-         }
-
-    });
- }
 });
- */
 
+router.get('/idPanier',function(req,res){
+         Panier.getPanierByIdUser(req.body, function(err){
+            if(err){
+                    res.json(err);
+            }
+         }).then(function(data){
+           // console.log(data);
+            //res.send(JSON.stringify(data));
+            res.json(data);
+        });
+
+});
+ 
 router.get('/creer',  function(req,res){
-      Panier.creerPanier(req.body,function(err){
+      Panier.creerPanier(function(err){
             if(err){
                 res.json(err);
             }
         }).then(function(data){
-            console.log(data);
-            res.send(""+data);
+            //console.log(data);
+            //res.send(JSON.stringify(data));
+            res.json(data);
         });
 });
 
@@ -43,16 +44,29 @@ router.get('/creer',  function(req,res){
 
 router.get('/delete',function(req,res){
        
-         Panier.deleteVoyageFromPanier(req.params.id,function(err,count){
+         Panier.deleteVoyageFromPanier(req.params.id,function(err){
             if(err){
                 res.json(err);
-            }else{
-                res.json(count);
             }
+        }).then(function(data){
+            //console.log(data);
+            //res.send(JSON.stringify(data));
+            res.json(data);
         });
     
 });
 
-
+router.get('/valider',function(req,res){
+       Panier.validerPanier(req.body,function(err){
+            if(err){
+                res.json(err);
+            }
+        }).then(function(data){
+            //console.log(data);
+            //res.send(JSON.stringify(data));
+            res.json(data);
+        });
+    
+});
 
  module.exports=router;

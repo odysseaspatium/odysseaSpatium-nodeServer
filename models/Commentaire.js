@@ -1,54 +1,41 @@
 var db=require('../dbconnexion').default; //reference of dbconnection.js
 
 var Commentaire={
-        async getAllCommentaire(callback){
+       
+
+
+        async getCommentaireByVoyage(body){
+            let conn, data;
             try{
                     conn = await db.getConnection();
-                    const data = await conn.query("Select * from t_commentaire",callback);
-                    return data;
-
-            } catch (err) {
+                    data = await conn.query("select * from t_commentaire where id_voyage_commentaire=?",[body.id_voyage]);
+                    await conn.end();
+                }catch (err) {
+                    if(conn)
+                        await conn.end();
                     throw err;
-            } finally {
-                    if (conn) 
-                    return conn.end();
-            }
-            
+                }
+                return data;
         },
 
 
-        async getCommentaireByVoyage(body,callback){
+        async addCommentaire(Commentaire){
+            let conn ,data;
             try{
-                    conn = await db.getConnection();
-                    const data = await conn.query("select * from t_commentaire where id_voyage_commentaire=?",[body.id]);
-                    return data;
-
+                conn = await db.getConnection();
+                /* ----------modifier le null par lien_photos_commentaire ----*/
+                data = await conn.query("INSERT into t_commentaire values(?,?,?,?,?)",[null,Commentaire.id_voyage,Commentaire.commentaire,Commentaire.id_utilisateur,null]);
+                await conn.end();
             } catch (err) {
-                    throw err;
-            } finally {
-                    if (conn) 
-                    return conn.end();
+                if(conn)
+                    await conn.end();
+                throw err;
             }
+            return data;
         },
 
+        
 
-        async creerCommentaire(Commentaire,callback){
-              try{
-                    conn = await db.getConnection();
-                    const data = await conn.query("Insert into t_commentaire values(?,?,?,?,?)",[null,Commentaire.id_voyage,Commentaire.commentaire,Commentaire.id_utilisateur,null]);
-                    return data;
-
-            } catch (err) {
-                    throw err;
-            } finally {
-                    if (conn) 
-                    return conn.end();
-            }
-        },
-
-        async deleteCommentaire(id,callback){
-        return db.query("delete from t_commentaire where id_commentaire=?",[id],callback);
-        },
        
 };
 module.exports=Commentaire;

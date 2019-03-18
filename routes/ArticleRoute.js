@@ -2,45 +2,23 @@ var express = require('express');
 var router = express.Router();
 var Article=require('../models/Article').default;
 
-router.get('/:id?',function(req,res){
 
-if(req.params.id){
-    Article.getArticlesByIdPanier(req.params.id,function(err,rows){
-    if(err){
-            res.json(err);
-    }else{
-            res.json(rows);
-    }
-  });
- }else{
-         Article.getAllArticle(function(err,rows){
-         if(err){
-                res.json(err);
-         }else{
-                res.json(rows);
-         }
-
-    });
- }
-});
- 
-
-router.post('/',function(req,res){
-    Article.addAricle(req.body,function(err){
+router.post('/ajoutVoyage',function(req,res){
+    Article.ajoutVoyageArticle(req.body,function(err){
         if(err){
             res.json(err);
-        }else{
-            res.json(req.body);//or return count for 1 &amp;amp;amp; 0
         }
+    }).then(function(data){
+         res.json(data);
     });
 });
-router.delete('/:id',function(req,res){
-    Article.deleteArticle(req.params.id,function(err,count){
+router.delete('/delete',function(req,res){
+    Article.deleteArticle(req.params.id,function(err){
         if(err){
             res.json(err);
-        }else{
-            res.json(count);
         }
+    }).then(function(data){
+        res.json(data);
     });
 });
 
