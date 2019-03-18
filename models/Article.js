@@ -1,11 +1,7 @@
 var db=require('../dbconnexion');
 
 var Article={
-        
-
-
-        
-
+       
         async ajoutVoyageArticle(Article){
             let conn, data;
              try{
@@ -32,8 +28,6 @@ var Article={
                     throw err;
                 }
         }
-
-       
-
+ 
 };
 module.exports=Article;
