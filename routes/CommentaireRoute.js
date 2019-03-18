@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Commentaire=require('../models/Commentaire').default;
+var Commentaire=require('../models/Commentaire');
 
 router.get('/getCommentaire',function(req,res){
     Commentaire.getCommentaireByVoyage(req.body,function(err){

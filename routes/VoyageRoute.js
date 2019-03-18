@@ -1,6 +1,6 @@
 var Router = require('express');
 var router = Router();
-var Voyage=require('../models/Voyage').default;
+var Voyage=require('../models/Voyage');
 
 router.get('/getVoyage',function(req,res){
     Voyage.getVoyageById(req.body,function(err){

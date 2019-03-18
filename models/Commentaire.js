@@ -1,4 +1,4 @@
-var db=require('../dbconnexion').default; //reference of dbconnection.js
+var db=require('../dbconnexion'); //reference of dbconnection.js
 
 var Commentaire={
        
