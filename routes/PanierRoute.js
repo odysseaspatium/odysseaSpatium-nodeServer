@@ -16,7 +16,11 @@ router.post('/contenu',function(req,res){
 });
 
 router.post('/idPanier',function(req,res){
-         Panier.getPanierByIdUser(req.body, function(err){
+            console.log(req);
+            console.log(req.body);
+            console.log(req.body.id_utilisateur);
+             Panier.getPanierByIdUser(req.body, function(err){
+             
             if(err){
                     res.json(err);
             }
@@ -62,8 +66,6 @@ router.post('/valider',function(req,res){
                 res.json(err);
             }
         }).then(function(data){
-            //console.log(data);
-            //res.send(JSON.stringify(data));
             res.json(data);
         });
     

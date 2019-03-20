@@ -12,8 +12,8 @@ router.post('/ajoutVoyage',function(req,res){
          res.json(data);
     });
 });
-router.delete('/delete',function(req,res){
-    Article.deleteArticle(req.params.id,function(err){
+router.delete('/supprimerVoyage',function(req,res){
+    Article.deleteArticle(req.body,function(err){
         if(err){
             res.json(err);
         }
