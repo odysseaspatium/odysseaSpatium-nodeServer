@@ -2,10 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const HistoriqueCommentaire = new Schema({
-    commentaires : [{
-        id_commentaire :{
-            type:Number
-        }
+    id_user : {
+        type:Number
+    },
+    id_commentaires : [{
+        type:Number
     }]
     },{
         collection: 'historiqueCommentaire'

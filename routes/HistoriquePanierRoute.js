@@ -15,7 +15,7 @@ HpanierRouter.route('/add').post(function(req,res){
 });
 
 HpanierRouter.route('/get').post(function(req,res){
-    HistoriquePanierSchema.findById(req.body.id,function(err,historique){
+    HistoriquePanierSchema.findOne({id_utilisateur:req.body.id},function(err,historique){
         if(err){
             console.log(err);
         }
