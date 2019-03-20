@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Commentaire=require('../models/Commentaire');
+var HistoCommentaire=require('../models/HistoriqueCommentaire');
 
 router.post('/getCommentaire',function(req,res){
     Commentaire.getCommentaireByVoyage(req.body,function(err){
@@ -19,6 +20,7 @@ router.post('/addCommentaire',function(req,res){
             res.json(err);
         } 
     }).then(function(data){
+        HistoCommentaire.findOneAndUpdate()
         res.json(data);
     });
 });

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const HistoriquePanier = new Schema({
-    id_panier :{
+    id_user :{
         type:Number
     },
     commandes : [{
