@@ -12,7 +12,7 @@ HCommentaireRouter.route('/add').post(function(req,res){
     .catch(err => {
         res.status(400).send("unable to save historiqueCom to database");
     });
-});
+}); 
 
 HCommentaireRouter.route('/get').post(function(req,res){
     HcommentaireSchema.find(function(req,res){
