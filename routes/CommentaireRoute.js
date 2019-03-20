@@ -15,12 +15,13 @@ router.post('/getCommentaire',function(req,res){
 
  
 router.post('/addCommentaire',function(req,res){
+
     Commentaire.addCommentaire(req.body,function(err){
         if(err){
             res.json(err);
         } 
     }).then(function(data){
-        HistoCommentaire.findOneAndUpdate()
+        HistoCommentaire.findOneAndUpdate({id_utilisateur:req.body.id_utilisateur}, {$push: {id_commentaires:req.body.id_commentaire_tab}});
         res.json(data);
     });
 });

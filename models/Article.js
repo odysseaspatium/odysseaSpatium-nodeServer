@@ -27,6 +27,20 @@ var Article={
                         await conn.end();
                     throw err;
                 }
+        },
+
+           async getTousArticles(Article){
+            let conn, data;
+             try{
+                    conn = await db.getConnection();
+                    data = await conn.query("SELECT nom_voyage, prix_voyage FROM t_voyage where id_voyage = ?",[Article.id_voyage]);
+                   await conn.end();
+                } catch (err) {
+                    if(conn)
+                        await conn.end();
+                    throw err;
+                }
+                return data;
         }
  
 };
