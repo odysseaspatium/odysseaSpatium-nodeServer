@@ -15,7 +15,7 @@ HpanierRouter.route('/add').post(function(req,res){
     });
 });
 
-HpanierRouter.route('/get').post(function(req,res){
+HpanierRouter.post('/get', function(req,res){
     HistoriquePanierSchema.findOne({id_utilisateur:req.body.id},function(err,historique){
         if(err){
             console.log(err);
@@ -30,3 +30,4 @@ HpanierRouter.route('/get').post(function(req,res){
 
     })
 });
+module.exports=HpanierRouter;

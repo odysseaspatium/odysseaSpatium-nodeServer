@@ -10,8 +10,8 @@ var Voyage=require('./routes/VoyageRoute');
 var Panier = require('./routes/PanierRoute');
 var Commentaire = require('./routes/CommentaireRoute');
 var Article=require('./routes/ArticleRoute');
-var HistoriqueCommentaireRoute=require('./routes/HistoriqueCommentaireRoute');
-var HistoriquePanierRoute=require('./routes/HistoriquePanierRoute');
+var HistoriqueCommentaire=require('./routes/HistoriqueCommentaireRoute');
+var HistoriquePanier=require('./routes/HistoriquePanierRoute');
 
 var app = express();
 
@@ -35,7 +35,7 @@ app.use('/Panier',Panier);
 app.use('/Commentaire',Commentaire);
 app.use('/Article',Article);
 app.use('/HistoriqueCommentaire', HistoriqueCommentaire);
-app.use('HistoriquePanier', HistoriquePanier);
+app.use('/HistoriquePanier', HistoriquePanier);
 
 
 

@@ -4,7 +4,7 @@ const HCommentaireRouter = express.Router();
 
 const HcommentaireSchema = require('../models/HistoriqueCommentaire');
 
-HCommentaireRouter.route('/add').post(function(req,res){
+HCommentaireRouter.post('/add',function(req,res){
     const hCommentaire = new HcommentaireSchema(req.body);
     hCommentaire.save().then(hCommentaire =>{
         res.json('historique commentaire succes');
@@ -14,7 +14,7 @@ HCommentaireRouter.route('/add').post(function(req,res){
     });
 }); 
 
-HCommentaireRouter.route('/get').post(function(req,res){
+HCommentaireRouter.post('/get').post(function(req,res){
     HcommentaireSchema.find(function(req,res){
         if(err){
             console.log(err);
@@ -24,3 +24,4 @@ HCommentaireRouter.route('/get').post(function(req,res){
         }
     })
 });
+ module.exports=HCommentaireRouter;
