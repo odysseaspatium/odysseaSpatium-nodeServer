@@ -20,7 +20,7 @@ var Article={
         let conn, data;
              try{
                     conn = await db.getConnection();
-                    data = await db.query("delete from t_article where id_article=?",[Article.id_panier]);
+                    data = await db.query("delete from t_article where id_article=?",[Article.id_article]);
                     await conn.end();
                 } catch (err) {
                     if(conn)
