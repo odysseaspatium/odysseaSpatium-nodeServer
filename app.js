@@ -10,6 +10,7 @@ var Voyage=require('./routes/VoyageRoute');
 var Panier = require('./routes/PanierRoute');
 var Commentaire = require('./routes/CommentaireRoute');
 var Article=require('./routes/ArticleRoute');
+
 var app = express();
 
 // view engine setup
@@ -43,7 +44,7 @@ app.use(function(req, res, next) {
 
 app.listen(4000, () => {
     console.log('Listening on port 4000');
-    app.use('/Voyage',Voyage);
+  
 });
 // Require static assets from public folder
 app.use(express.static(path.join(__dirname, 'public')));

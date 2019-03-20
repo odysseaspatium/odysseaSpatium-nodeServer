@@ -16,10 +16,12 @@ var Panier={
                  return data;
         },
          async getPanierByIdUser(body){
-            let conn, data;
+             console.log(body);
+             console.log(body.id_utilisateur);
+             let conn, data;
                 try {
                     conn = await db.getConnection();
-                    data = await conn.query("select id_panier from t_panier where id_user=?",[body.id_utilisateur]);
+                    data = await conn.query("select id_panier_user from t_utilisateur where id_user=?",[body.id_utilisateur]);
                     await conn.end();
                 } catch (err) {
                     if(conn)
