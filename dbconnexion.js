@@ -1,4 +1,5 @@
 const mariadb = require('mariadb');
+
 const pool = mariadb.createPool({
     host: 'obiwan2.univ-brest.fr',
     port: '3306',
