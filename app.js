@@ -10,6 +10,8 @@ var Voyage=require('./routes/VoyageRoute');
 var Panier = require('./routes/PanierRoute');
 var Commentaire = require('./routes/CommentaireRoute');
 var Article=require('./routes/ArticleRoute');
+var HistoriqueCommentaireRoute=require('./routes/HistoriqueCommentaireRoute');
+var HistoriquePanierRoute=require('./routes/HistoriquePanierRoute');
 
 var app = express();
 
