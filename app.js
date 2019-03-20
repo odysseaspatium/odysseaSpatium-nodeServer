@@ -34,6 +34,8 @@ app.use('/Voyage',Voyage);
 app.use('/Panier',Panier);
 app.use('/Commentaire',Commentaire);
 app.use('/Article',Article);
+app.use('/HistoriqueCommentaire', HistoriqueCommentaire);
+app.use('HistoriquePanier', HistoriquePanier);
 
 
 
