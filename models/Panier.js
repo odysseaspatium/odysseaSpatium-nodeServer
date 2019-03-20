@@ -31,6 +31,22 @@ var Panier={
                  return data;
         },
 
+        async getIdPanierByIdUser(body){
+                    let conn, data;
+                    try{
+                        conn = await db.getConnection();
+                        data = await conn.query("SELECT id_panier_user from t_utilisateur where id_user=?", [body.id_user]);
+                        await conn.end();   
+                            
+                    }catch(err){
+                        if(conn)
+                            await conn.end();
+                        throw err;
+                        }
+                        
+                        return data[0].id_panier;
+                },
+
         async creerPanier(){
             let conn, data, rows;
             try{

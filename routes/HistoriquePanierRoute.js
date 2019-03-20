@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const HpanierRouter = express.Router();
+var voyage=require('../models/Voyage');
 
 const HistoriquePanierSchema = require('../models/HistoriquePanier');
 
@@ -19,8 +20,13 @@ HpanierRouter.route('/get').post(function(req,res){
         if(err){
             console.log(err);
         }
-        else{
-            res.json(historique);
+        
+    }).then(historique =>{
+        let data=[];
+        for(let index=0; historique.length(); index++){
+            data.push(voyage.getVoyageById(historique[index].id_voyage));
         }
+        res.json(data);
+
     })
 });

@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var Article=require('../models/Article');
 
-
 router.post('/ajoutVoyage',function(req,res){
     Article.ajoutVoyageArticle(req.body,function(err){
         if(err){
@@ -12,7 +11,8 @@ router.post('/ajoutVoyage',function(req,res){
          res.json(data);
     });
 });
-router.delete('/supprimerVoyage',function(req,res){
+router.post('/supprimerVoyage',function(req,res){
+    console.log(req.body);
     Article.deleteArticle(req.body,function(err){
         if(err){
             res.json(err);

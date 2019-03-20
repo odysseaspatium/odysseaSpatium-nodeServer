@@ -6,9 +6,9 @@ const HistoriquePanier = new Schema({
         type:Number
     },
     commandes : [{
-        id_voyage : {
+        id_voyage : [{
             type:Number
-        },
+        }],
         prix : {
             type:Number
         }
