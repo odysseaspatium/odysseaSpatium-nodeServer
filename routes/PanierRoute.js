@@ -71,7 +71,7 @@ router.post('/delete',function(req,res){
     
 });
 
-router.post('/getIdPanier',function(req,res){
+/*router.post('/getIdPanier',function(req,res){
        
          Panier.getIdPanierByIdUser(req.params.id,function(err){
             if(err){
@@ -83,10 +83,12 @@ router.post('/getIdPanier',function(req,res){
             res.json(data);
         });
     
-});
+});*/
 router.post('/valider',function(req,res){
-     HistoPanier.findOneAndUpdate({id_utilisateur:req.body.id_utilisateur}, {$push: {commandes:{id_voyage:req.body.voyages,prix:req.body.prix }}});
-            
+     
+        HistoPanier.findOneAndUpdate({id_utilisateur:req.body.id_utilisateur},
+            {id_utilisateur:req.body.id_utilisateur,$push: {commandes:{id_voyage:req.body.voyages,prix:req.body.prix }}}
+            ,{upsert:true});
        Panier.validerPanier(req.body,function(err){
             if(err){
                 res.json(err);
