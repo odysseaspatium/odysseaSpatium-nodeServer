@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const HistoriqueCommentaire = new Schema({
-    id_user : {
+    id_utilisateur : {
         type:Number
     },
     id_commentaires : [{
