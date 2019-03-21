@@ -14,7 +14,7 @@ HCommentaireRouter.post('/add',function(req,res){
     });
 }); 
 HCommentaireRouter.post('/get').post(function(req,res){
-    HcommentaireSchema.find(function(req,res){
+    HcommentaireSchema.find(function(req,historique){
         if(err){
             console.log(err);
         }

@@ -4,6 +4,7 @@ const HpanierRouter = express.Router();
 var voyage=require('../models/Voyage');
 var dbmongo =require("../dbMongoConn");
 var mongoose=require('mongoose');
+var async=require('async');
 
 const HistoriquePanierSchema = require('../models/HistoriquePanier');
 
@@ -19,28 +20,31 @@ HpanierRouter.route('/add').post(function(req,res){
 
 HpanierRouter.post('/getVoyages', function(req,res){
     let data=[];
-    for(let index=0; index < req.body.historique.commandes.length; index++){
-        for(let indexIdVoyage=0;indexIdVoyage < rreq.body.historique.commandes[index].id_voyage.length; indexIdVoyage++){
-            voyage.getVoyageByIdValue(req.body.historique.commandes[index].id_voyage[indexIdVoyage],function(err){
-                if(err){
-                    throw err;
-                }
-            }).then(resultat =>{
+    async.forEachOf(req.body.historique.commandes, function(commandes,i,inner_callback ){
+        async.forEachOf(commandes.id_voyage,function(voyage_id,y,callback) {
+            voyage.getVoyageByIdValue(voyage_id,function(err){
+                if(err) throw err;
+            }).then(resultat=>{
+                console.log("result : "+resultat);
                 data.push(resultat[0]);
-            })
-        }
-    }
-    res.json(data);
-    
+                console.log("data avant: "+data);
+            });
+        console.log("data apres: "+data);
+        });
+    },function(err){ 
+        if(err)throw err; 
+        console.log(data);
+        res.json(data);
+    });
 });
 
 HpanierRouter.post('/getHistorique', function(req,res){
-    HistoriquePanierSchema.findOne({id_utilisateur:req.body.id}, function(err, historique) {
-            if (err) {
-                throw err;
-            }else {
-                res.json(historique);
-            }
-    });
+    HistoriquePanierSchema.findOne({id_utilisateur:req.body.id}, function(err) {
+        if (err)
+            throw err;
+        
+        }).then(historique =>{
+            res.json(historique);
+        });
 });
 module.exports=HpanierRouter;

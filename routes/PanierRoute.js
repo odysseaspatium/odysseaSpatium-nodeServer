@@ -18,9 +18,6 @@ router.post('/contenu',function(req,res){
 });
 
 router.post('/idPanier',function(req,res){
-            console.log(req);
-            console.log(req.body);
-            console.log(req.body.id_utilisateur);
              Panier.getPanierByIdUser(req.body, function(err){
              
             if(err){
