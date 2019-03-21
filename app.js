@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors=require('cors');
+var mongoose = require('mongoose');
+var config = require('./dbMongoConn');
 
 var Voyage=require('./routes/VoyageRoute');
 var Panier = require('./routes/PanierRoute');
@@ -13,7 +15,14 @@ var Article=require('./routes/ArticleRoute');
 var HistoriqueCommentaire=require('./routes/HistoriqueCommentaireRoute');
 var HistoriquePanier=require('./routes/HistoriquePanierRoute');
 
+
+
 var app = express();
+
+mongoose.connect(config.DB).then(
+    () => {console.log('Database mongo is connected')},
+    err => {console.log('Can not connect to the database ' +err)}
+);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
