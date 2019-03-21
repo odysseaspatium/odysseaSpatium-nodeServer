@@ -25,15 +25,11 @@ HpanierRouter.post('/getVoyages', function(req,res){
             voyage.getVoyageByIdValue(voyage_id,function(err){
                 if(err) throw err;
             }).then(resultat=>{
-                console.log("result : "+resultat);
                 data.push(resultat[0]);
-                console.log("data avant: "+data);
             });
-        console.log("data apres: "+data);
         });
     },function(err){ 
         if(err)throw err; 
-        console.log(data);
         res.json(data);
     });
 });
