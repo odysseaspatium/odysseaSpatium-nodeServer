@@ -23,7 +23,6 @@ router.post('/addCommentaire',function(req,res){
             res.json(err);
         } 
     }).then(function(data){
-        //mongoose.createConnection(dbmongo);
         HistoCommentaire.findOneAndUpdate({id_utilisateur:req.body.id_utilisateur}, {$push: {id_commentaires:req.body.id_commentaire_tab}});
         mongoose.connection.close();
         res.json(data);

@@ -21,7 +21,6 @@ var Commentaire={
             let conn ,data;
             try{
                 conn = await db.getConnection();
-                /* ----------modifier le null par lien_photos_commentaire ----*/
                 data = await conn.query("INSERT into t_commentaire values(?,?,?,?,?)",[null,Commentaire.id_voyage,Commentaire.commentaire,Commentaire.id_utilisateur,null]);
                 await conn.end();
             } catch (err) {
