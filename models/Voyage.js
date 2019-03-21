@@ -15,6 +15,19 @@ var Voyage={
             return data;
         },
 
+    async getVoyageByIdValue(body){
+            let conn, data;
+            try{
+                conn = await db.getConnection();
+                data = await conn.query("select * from t_voyage where id_voyage=?",[body]);
+                await conn.end();
+                }catch (err) {
+                    if(conn)
+                        await conn.end();
+                    throw err;
+                }
+            return data;
+        },
 
         async getVoyageById(body){
             let conn, data;

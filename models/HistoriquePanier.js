@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 
 const HistoriquePanier = new Schema({
-    id_user :{
+    id_utilisateur :{
         type:Number
     },
     commandes : [{
